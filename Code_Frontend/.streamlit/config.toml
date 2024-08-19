@@ -1,0 +1,12 @@
+[server]
+port = 8501
+maxUploadSize = 15
+
+[theme]
+base="light"
+
+font="sans serif"
+#textColor = "#CCCCCC"
+
+#secondaryBackgroundColor="#889197"
+#secondaryBackgroundColor="#323335"

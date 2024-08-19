@@ -1,0 +1,69 @@
+services:
+  app1:
+    build: ./app
+    container_name: app1
+    command: uvicorn main:app --host 0.0.0.0 --port 8000 --reload
+    ports:
+      - 8001:8000
+    volumes:
+      - shared_data:/shared_data
+
+  app2:
+    build: ./app
+    container_name: app2
+    command: uvicorn main:app --host 0.0.0.0 --port 8000 --reload
+    ports:
+      - 8002:8000
+    volumes:
+      - shared_data:/shared_data
+
+  app3:
+    build: ./app
+    container_name: app3
+    command: uvicorn main:app --host 0.0.0.0 --port 8003
+    ports:
+      - 8003:8003
+    volumes:
+      - shared_data:/shared_data
+  
+  app4:
+    build: ./app
+    container_name: app4
+    command: uvicorn main:app --host 0.0.0.0 --port 8000 --reload
+    ports:
+      - 8004:8000
+    volumes:
+      - shared_data:/shared_data
+
+  app5:
+    build: ./app
+    container_name: app5
+    command: uvicorn main:app --host 0.0.0.0 --port 8000 --reload
+    ports:
+      - 8005:8000
+    volumes:
+      - shared_data:/shared_data
+
+  nginx:
+    image: nginx:alpine
+    container_name: nginx
+    ports:
+      - 8000:80
+    volumes:
+      - shared_data:/shared_data
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+    depends_on:
+      - app1
+      - app2
+      - app3
+      - app4
+      - app5
+
+volumes:
+  shared_data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /host_mnt/c/Users/vonhu/Downloads/Backend
+# example: /host_mnt/c/Users/vonhu/Downloads/Backend
